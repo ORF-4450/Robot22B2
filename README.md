@@ -3,7 +3,7 @@
 FRC Team 4450 2022 Robot Control program.
 
 This is the Command based 2022 competition robot control program reference implementation created by the Olympia Robotics Federation (FRC Team 4450). 
-Operates the robot "?" for FRC game "?".
+Operates the robot "?" for FRC game "Rapid React".
 
 ----------------------------------------------------------------------------
 ## Instructions to setup development environment for VS Code
