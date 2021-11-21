@@ -31,7 +31,8 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
    * for any initialization code.
    */
   @Override
-  public void robotInit() {
+  public void robotInit() 
+  {
     try {
       robot = this;
 
@@ -90,9 +91,12 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
 
       SendableVersion.INSTANCE.init(PROGRAM_NAME);
 
+      // Note: for 2022, under simulation, this information is not correct.
       Util.consoleLog("%s compiled by %s at %s (branch=%s, commit=%s)", SendableVersion.INSTANCE.getProgramVersion(),
           SendableVersion.INSTANCE.getUser(), SendableVersion.INSTANCE.getTime(), SendableVersion.INSTANCE.getBranch(),
           SendableVersion.INSTANCE.getCommit());
+
+      Util.consoleLog("manifest path=%s", SendableVersion.INSTANCE.getPath());
 
       // Send program version to the dashboard.
 
@@ -142,7 +146,8 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
    * and SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {
+  public void robotPeriodic() 
+  {
     // This function is called approx every .02 second.
     // Runs the Scheduler. It is responsible for polling buttons, adding
     // newly-scheduled
@@ -176,7 +181,8 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
    * This function is called once each time the robot enters Disabled mode.
    */
   @Override
-  public void disabledInit() {
+  public void disabledInit() 
+  {
     Util.consoleLog();
 
     LCD.printLine(LCD_1, "Mode: Disabled");
@@ -210,7 +216,8 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
    * should be nothing here.
    */
   @Override
-  public void disabledPeriodic() {
+  public void disabledPeriodic() 
+  {
   }
 
   /**
@@ -218,7 +225,8 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
    * the autonomous command selected by your {@link RobotContainer} class.
    */
   @Override
-  public void autonomousInit() {
+  public void autonomousInit() 
+  {
     Util.consoleLog("-------------------------------------------------------------------------");
 
     LCD.clearAll();
@@ -254,14 +262,16 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
    * should be nothing here.
    */
   @Override
-  public void autonomousPeriodic() {
+  public void autonomousPeriodic() 
+  {
   }
 
   /**
    * This function is called once at the start of teleop mode.
    */
   @Override
-  public void teleopInit() {
+  public void teleopInit() 
+  {
     Util.consoleLog("-------------------------------------------------------------------------");
 
     robotContainer.getMatchInformation();
@@ -288,7 +298,8 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
    * FMS at any time so we monitor for it here.
    */
   @Override
-  public void teleopPeriodic() {
+  public void teleopPeriodic() 
+  {
     // Update game color on DS. Can change at any time during teleop.
 
     String gameData = DriverStation.getGameSpecificMessage();
@@ -301,7 +312,8 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
    * This function is called once at the start of test mode.
    */
   @Override
-  public void testInit() {
+  public void testInit() 
+  {
     Util.consoleLog();
 
     LCD.clearAll();
@@ -315,6 +327,7 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
    * This function is called periodically during test mode.
    */
   @Override
-  public void testPeriodic() {
+  public void testPeriodic() 
+  {
   }
 }

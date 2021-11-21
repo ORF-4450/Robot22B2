@@ -4,7 +4,6 @@ package Team4450.Robot22;
 import static Team4450.Robot22.Constants.*;
 
 
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.DoubleSupplier;
