@@ -107,18 +107,18 @@ public class DriveBase extends SubsystemBase
         // the simulation is coded, but going to live with it for now.
         if (RobotBase.isReal()) rightEncoder.setInverted(true);
 
-        if (RobotBase.isSimulation())
-        {
-            // Needed for Built-in SRX encoder sim support, not used at this time.
-            //leftEncoder.setInverted(true);
-            //rightEncoder.setInverted(true);
-        }
+        // Needed for Built-in SRX encoder sim support, not used at this time.
+        // if (RobotBase.isSimulation())
+        // {
+        //     leftEncoder.setInverted(true);
+        //     rightEncoder.setInverted(true);
+        // }
 		
 		// Put rear talons into a differential drive object and set the
 	    // front talons to follow the rears.
 		  
-		LFCanTalon.set(ControlMode.Follower, LRCanTalon.getDeviceID());
-		RFCanTalon.set(ControlMode.Follower, RRCanTalon.getDeviceID());
+		//LFCanTalon.set(ControlMode.Follower, LRCanTalon.getDeviceID());
+		//RFCanTalon.set(ControlMode.Follower, RRCanTalon.getDeviceID());
 
 		robotDrive = new DifferentialDrive(LRCanTalon, RRCanTalon);
 

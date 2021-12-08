@@ -7,6 +7,7 @@ import static Team4450.Robot22.Constants.*;
 
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
@@ -75,13 +76,18 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
 
       // Set Java to catch any uncaught exceptions and record them in our log file.
 
-      Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-        public void uncaughtException(Thread t, Throwable e) {
+      Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() 
+      {
+        public void uncaughtException(Thread t, Throwable e) 
+        {
           Util.consoleLog("Uncaught exception from thread " + t);
           Util.logException(e);
           robot.endCompetition();
         }
       });
+
+      if (RobotBase.isSimulation()) Util.consoleLog("Simulated Robot");
+      if (RobotBase.isReal()) Util.consoleLog("Real Robot");
 
       // Eliminate LW overhead when not using it.
       LiveWindow.disableAllTelemetry();
@@ -96,7 +102,7 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
           SendableVersion.INSTANCE.getUser(), SendableVersion.INSTANCE.getTime(), SendableVersion.INSTANCE.getBranch(),
           SendableVersion.INSTANCE.getCommit());
 
-      Util.consoleLog("manifest path=%s", SendableVersion.INSTANCE.getPath());
+      //Util.consoleLog("manifest path=%s", SendableVersion.INSTANCE.getPath());
 
       // Send program version to the dashboard.
 

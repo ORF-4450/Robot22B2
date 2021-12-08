@@ -120,7 +120,7 @@ public class RobotContainer
 	public static JoyStick   utilityStick = new JoyStick(new Joystick(UTILITY_STICK), "Utility Stick", JoyStickButtonIDs.TRIGGER);
 	private Joystick	launchPad = new Joystick(LAUNCH_PAD);	//new LaunchPad(new Joystick(LAUNCH_PAD));
 
-    private GamePad     gamePad = new GamePad(new Joystick(GAME_PAD), "Game Pad", GamePadButtonIDs.START);
+    private GamePad     gamePad;
 
 	private AnalogInput	pressureSensor = new AnalogInput(PRESSURE_SENSOR);
 	  
@@ -202,13 +202,23 @@ public class RobotContainer
 	  
 		leftStick.invertY(true);
         rightStick.invertY(true);
-        gamePad.invertY(true);  
 		
 		// Invert utility stick so pulling back is + which typically means go up.
 		
 		utilityStick.invertX(true);
 		utilityStick.deadZoneY(.50);
 		utilityStick.deadZoneX(.25);
+
+		// We use Xbox game pad under sim instead of joysticks.
+		
+		if (RobotBase.isSimulation())
+		{
+			gamePad = new GamePad(new Joystick(GAME_PAD), "Game Pad", GamePadButtonIDs.START);
+
+			// Invert driving joy stick Y axis so + values mean forward.
+	  
+			gamePad.invertY(true);  
+		}
 
 		// Create subsystems prior to button mapping.
 		
@@ -454,8 +464,8 @@ public class RobotContainer
 	private void configureButtonBindingsSim() 
 	{
         Util.consoleLog();
-                
-        // These buttons do two functions:
+        
+		// These buttons do two functions:
         // Test gamepad button processing.
         // Demonstate how to pass parameters to a runnable. See Channel class.
 
@@ -583,7 +593,7 @@ public class RobotContainer
 		pcm.setClosedLoopControl(SmartDashboard.getBoolean("CompressorEnabled", true));
 		
 		pdp.clearStickyFaults();
-		pcm.clearAllStickyFaults();
+		//pcm.clearAllStickyFaults();
     }
          
     /**

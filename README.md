@@ -27,6 +27,17 @@ Version 22B
 
 R. Corn, October 2021
 
+Version 21C.3
+
+*   The optical sensors on the turret worked fine in P9 and practice portable. They did not work in the new lab.
+    Investigation revealed that the sensors are analog, not digital. They were programmed as digital. Technically
+    they should have never worked. Can't explain how they seemed to work prior to the move to new lab. But in the
+    new lab they would return false all the time. Only returned true with a bright light on them. Perhaps the light levels in those other spaces were just high enough to trigger. In any case, converted the sensors to
+    analog in the code and all is well. Tried the digital photo sensors but they did not work so stayed with analog. Only downside to analog is the limited analog ports on RoboRio.
+
+R. Corn
+December 2021
+
 Version 21C.2
 
 *   More post season tinkering and doc updates.
