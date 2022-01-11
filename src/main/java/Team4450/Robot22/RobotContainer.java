@@ -590,7 +590,7 @@ public class RobotContainer
 	{
 		// This code turns off the automatic compressor management if requested by DS. Putting this
 		// here is a convenience since this function is called at each mode change.
-		pcm.setClosedLoopControl(SmartDashboard.getBoolean("CompressorEnabled", true));
+		if (SmartDashboard.getBoolean("CompressorEnabled", true)) pcm.disableCompressor();
 		
 		pdp.clearStickyFaults();
 		//pcm.clearAllStickyFaults();
