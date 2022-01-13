@@ -2,12 +2,15 @@
 package Team4450.Robot22;
 
 import Team4450.Lib.*;
+//import Team4450.Robot22.wpilib.TimedRobot;
+
 //import Team4450.Robot22.subsystems.ColorWheel;
 import static Team4450.Robot22.Constants.*;
 
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
@@ -23,7 +26,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * containing package after creating this project, you must also update the
  * Main.java file in the project.
  */
-public class Robot extends Team4450.Robot22.wpilib.TimedRobot 
+//public class Robot extends Team4450.Robot22.wpilib.TimedRobot 
+
+public class Robot extends TimedRobot 
 {
   private RobotContainer robotContainer;
 
@@ -69,10 +74,10 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
       // long that can lead to various control problems. But, it has proven hard to
       // do anything useful and not exceed the .02 sec watchdogs.
 
-      enableWatchDogWarning(false);
-      enableWatchDogFlush(false);
-      this.setWatchDogTimeout(.04);
-      CommandScheduler.getInstance().setPeriod(1.0);
+      //enableWatchDogWarning(false);
+      //enableWatchDogFlush(false);
+      //this.setWatchDogTimeout(.04);
+      //CommandScheduler.getInstance().setPeriod(1.0);
 
       // Set Java to catch any uncaught exceptions and record them in our log file.
 
@@ -111,17 +116,12 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
       // Log RobotLib and WPILib versions we are using.
       Util.consoleLog("RobotLib=%s, WPILib=%s", LibraryVersion.version, WPILibVersion.Version);
 
-      // Note: Any Sendables added to SmartDashboard or Shuffleboard are sent to the
-      // DS on every
-      // loop of a TimedRobot. In this case it means that the SendableVersion data
-      // would be sent
-      // to the DS every 20ms even though it does not change. Sendables must be added
-      // to the SDB
-      // or SB in order to be sent so its a catch-22 with Sendables. So we add the
-      // SendableVersion
-      // here and then just below delete it from the sendable system. This puts the
-      // version info
-      // onto the dashboard but removes it from further updates.
+      // Note: Any Sendables added to SmartDashboard or Shuffleboard are sent to the DS on every
+      // loop of a TimedRobot. In this case it means that the SendableVersion data would be sent
+      // to the DS every 20ms even though it does not change. Sendables must be added to the SDB
+      // or SB in order to be sent so its a catch-22 with Sendables. So we add the SendableVersion
+      // here and then a few lines below delete it from the sendable system. This puts the version
+      // info onto the dashboard but removes it from further updates.
 
       SmartDashboard.putData("Version", (Sendable) SendableVersion.INSTANCE);
 
@@ -155,20 +155,14 @@ public class Robot extends Team4450.Robot22.wpilib.TimedRobot
   public void robotPeriodic() 
   {
     // This function is called approx every .02 second.
-    // Runs the Scheduler. It is responsible for polling buttons, adding
-    // newly-scheduled
-    // commands, running already-scheduled commands, removing finished or
-    // interrupted commands,
-    // and running subsystem periodic() methods. This must be called from the
-    // robot's periodic
+    // Runs the Scheduler. It is responsible for polling buttons, adding newly-scheduled
+    // commands, running already-scheduled commands, removing finished or interrupted commands,
+    // and running subsystem periodic() methods. Scheduler must be called from the robot's periodic
     // function in order for anything in the Command-based framework to work.
 
-    // WARNING: This function is called repeatedly even when robot is DISABLED. This
-    // means the
-    // periodic method in all subsystems will be called even when disabled. The
-    // scheduler will
-    // stop commands when disabled but not subsystems. It is possible to set
-    // Commands to run
+    // WARNING: This function is called repeatedly even when robot is DISABLED. This means the
+    // periodic method in all subsystems will be called even when disabled. The scheduler will
+    // stop commands when disabled but not subsystems. It is also possible to set Commands to run
     // when robot is disabled. This seems a bad idea...
 
     // The try/catch will catch any exceptions thrown in the commands run by the

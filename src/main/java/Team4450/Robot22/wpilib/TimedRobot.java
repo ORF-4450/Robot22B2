@@ -4,12 +4,13 @@ package Team4450.Robot22.wpilib;
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+//package edu.wpi.first.wpilibj;
+
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
-//import edu.wpi.first.wpilibj.IterativeRobotBase;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.hal.NotifierJNI;
-import edu.wpi.first.wpilibj.Timer;
 import java.util.PriorityQueue;
 
 /**
@@ -19,9 +20,9 @@ import java.util.PriorityQueue;
  *
  * <p>periodic() functions from the base class are called on an interval by a Notifier instance.
  */
-public class TimedRobot extends Team4450.Robot22.wpilib.IterativeRobotBase {
+public class TimedRobot extends IterativeRobotBase {
   @SuppressWarnings("MemberName")
-  class Callback implements Comparable<Callback> {
+  static class Callback implements Comparable<Callback> {
     public Runnable func;
     public double period;
     public double expirationTime;
@@ -43,6 +44,19 @@ public class TimedRobot extends Team4450.Robot22.wpilib.IterativeRobotBase {
               + Math.floor((Timer.getFPGATimestamp() - startTimeSeconds) / this.period)
                   * this.period
               + this.period;
+    }
+
+    @Override
+    public boolean equals(Object rhs) {
+      if (rhs instanceof Callback) {
+        return Double.compare(expirationTime, ((Callback) rhs).expirationTime) == 0;
+      }
+      return false;
+    }
+
+    @Override
+    public int hashCode() {
+      return Double.hashCode(expirationTime);
     }
 
     @Override
@@ -100,6 +114,7 @@ public class TimedRobot extends Team4450.Robot22.wpilib.IterativeRobotBase {
     }
 
     // Tell the DS that the robot is ready to be enabled
+    System.out.println("********** Robot program startup complete **********");
     HAL.observeUserProgramStarting();
 
     // Loop forever, calling the appropriate mode-dependent function
@@ -137,11 +152,6 @@ public class TimedRobot extends Team4450.Robot22.wpilib.IterativeRobotBase {
   @Override
   public void endCompetition() {
     NotifierJNI.stopNotifier(m_notifier);
-  }
-
-  /** Get time period between calls to Periodic() functions. */
-  public double getPeriod() {
-    return m_period;
   }
 
   /**

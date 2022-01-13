@@ -86,9 +86,9 @@ public class DriveBase extends SubsystemBase
 		InitializeCANTalon(RFCanTalon);
 		InitializeCANTalon(RRCanTalon);
 		
-		// Configure CAN Talons with appropriate inversion.
-		LFCanTalon.setInverted(true);
-		LRCanTalon.setInverted(true);
+		// Configure CAN Talons with appropriate inversion determined by testing.
+		LFCanTalon.setInverted(false);
+		LRCanTalon.setInverted(false);
 		  
 		// These should be true for regular tank. false for 
 		// velocity tank.
