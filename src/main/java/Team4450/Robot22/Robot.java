@@ -2,7 +2,7 @@
 package Team4450.Robot22;
 
 import Team4450.Lib.*;
-//import Team4450.Robot22.wpilib.TimedRobot;
+import Team4450.Robot22.wpilib.TimedRobot;
 
 //import Team4450.Robot22.subsystems.ColorWheel;
 import static Team4450.Robot22.Constants.*;
@@ -10,7 +10,7 @@ import static Team4450.Robot22.Constants.*;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
-import edu.wpi.first.wpilibj.TimedRobot;
+//import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.WPILibVersion;
@@ -26,7 +26,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * containing package after creating this project, you must also update the
  * Main.java file in the project.
  */
-//public class Robot extends Team4450.Robot22.wpilib.TimedRobot 
 
 public class Robot extends TimedRobot 
 {
@@ -74,10 +73,10 @@ public class Robot extends TimedRobot
       // long that can lead to various control problems. But, it has proven hard to
       // do anything useful and not exceed the .02 sec watchdogs.
 
-      //enableWatchDogWarning(false);
-      //enableWatchDogFlush(false);
-      //this.setWatchDogTimeout(.04);
-      //CommandScheduler.getInstance().setPeriod(1.0);
+      enableWatchDogWarning(false);
+      enableWatchDogFlush(false);
+      this.setWatchDogTimeout(.04);
+      CommandScheduler.getInstance().setPeriod(1.0);
 
       // Set Java to catch any uncaught exceptions and record them in our log file.
 
@@ -94,6 +93,13 @@ public class Robot extends TimedRobot
       if (RobotBase.isSimulation()) Util.consoleLog("Simulated Robot");
       if (RobotBase.isReal()) Util.consoleLog("Real Robot");
 
+      // Debugging code for WPILib bug. Bug fixed but keeing this for a bit.
+      // monitorDS1Thread = MonitorDS1.getInstance();
+      // monitorDS1Thread.start();
+
+      // monitorDS2Thread = MonitorDS2.getInstance();
+      // monitorDS2Thread.start();
+
       // Eliminate LW overhead when not using it.
       LiveWindow.disableAllTelemetry();
 
@@ -102,7 +108,7 @@ public class Robot extends TimedRobot
 
       SendableVersion.INSTANCE.init(PROGRAM_NAME);
 
-      // Note: for 2022, under simulation, this information is not correct.
+      // Note: for 2022, under simulation, this information may not be not correct.
       Util.consoleLog("%s compiled by %s at %s (branch=%s, commit=%s)", SendableVersion.INSTANCE.getProgramVersion(),
           SendableVersion.INSTANCE.getUser(), SendableVersion.INSTANCE.getTime(), SendableVersion.INSTANCE.getBranch(),
           SendableVersion.INSTANCE.getCommit());
@@ -110,7 +116,6 @@ public class Robot extends TimedRobot
       //Util.consoleLog("manifest path=%s", SendableVersion.INSTANCE.getPath());
 
       // Send program version to the dashboard.
-
       SmartDashboard.putString("Program", PROGRAM_NAME);
 
       // Log RobotLib and WPILib versions we are using.
@@ -119,7 +124,7 @@ public class Robot extends TimedRobot
       // Note: Any Sendables added to SmartDashboard or Shuffleboard are sent to the DS on every
       // loop of a TimedRobot. In this case it means that the SendableVersion data would be sent
       // to the DS every 20ms even though it does not change. Sendables must be added to the SDB
-      // or SB in order to be sent so its a catch-22 with Sendables. So we add the SendableVersion
+      // or SB in order to be sent so its a catch-22 with static Sendables. So we add the SendableVersion
       // here and then a few lines below delete it from the sendable system. This puts the version
       // info onto the dashboard but removes it from further updates.
 

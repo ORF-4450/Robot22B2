@@ -117,6 +117,7 @@ public class RobotContainer
 	
 	private JoyStick	leftStick = new JoyStick(new Joystick(LEFT_STICK), "Left Stick", JoyStickButtonIDs.TRIGGER);
 	private JoyStick	rightStick = new JoyStick(new Joystick(RIGHT_STICK), "Right  Stick", JoyStickButtonIDs.TRIGGER);
+
 	public static JoyStick   utilityStick = new JoyStick(new Joystick(UTILITY_STICK), "Utility Stick", JoyStickButtonIDs.TRIGGER);
 	private Joystick	launchPad = new Joystick(LAUNCH_PAD);	//new LaunchPad(new Joystick(LAUNCH_PAD));
 
@@ -264,8 +265,8 @@ public class RobotContainer
 		// Note that on real robot we use actual joysticks and on sim we use an XBox controller.
       
         if (RobotBase.isReal())
-             driveBase.setDefaultCommand(driveCommand = new TankDrive(driveBase, () -> leftStick.GetY(), 
-                                                                                 () -> rightStick.GetY()));
+            driveBase.setDefaultCommand(driveCommand = new TankDrive(driveBase, () -> leftStick.GetY(), 
+                                                                                () -> rightStick.GetY()));
         else
             driveBase.setDefaultCommand(driveCommand = new TankDrive(driveBase, () -> gamePad.GetLeftY(), 
                                                                                 () -> gamePad.GetRightY()));
@@ -355,8 +356,8 @@ public class RobotContainer
 
 		// Toggle alternate driving mode.
 		new JoystickButton(rightStick.getJoyStick(), JoyStick.JoyStickButtonIDs.TRIGGER.value)
-    	.whenPressed(new InstantCommand(driveCommand::toggleAlternateDrivingMode));
-  
+    		.whenPressed(new InstantCommand(driveCommand::toggleAlternateDrivingMode));
+ 
 		// -------- Utility stick buttons ----------
 		
 		// Toggle extend Pickup.

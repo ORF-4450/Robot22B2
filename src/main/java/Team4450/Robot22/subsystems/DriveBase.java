@@ -87,13 +87,11 @@ public class DriveBase extends SubsystemBase
 		InitializeCANTalon(RRCanTalon);
 		
 		// Configure CAN Talons with appropriate inversion determined by testing.
-		LFCanTalon.setInverted(false);
-		LRCanTalon.setInverted(false);
+		LFCanTalon.setInverted(true);
+		LRCanTalon.setInverted(true);
 		  
-		// These should be true for regular tank. false for 
-		// velocity tank.
-		RFCanTalon.setInverted(true);
-		RRCanTalon.setInverted(true);
+		RFCanTalon.setInverted(false);
+		RRCanTalon.setInverted(false);
 		  
 		// Configure SRX encoders as needed for measuring velocity and distance. 
 		// Wheel diameter is in inches. Adjust for each years robot.
@@ -105,7 +103,7 @@ public class DriveBase extends SubsystemBase
         // values going forward. This should be the same for simulation, but it did not 
         // work right so no invert under sim. I am sure this is due to a mistake in how
         // the simulation is coded, but going to live with it for now.
-        if (RobotBase.isReal()) rightEncoder.setInverted(true);
+        //if (RobotBase.isReal()) rightEncoder.setInverted(true);
 
         // Needed for Built-in SRX encoder sim support, not used at this time.
         // if (RobotBase.isSimulation())
@@ -117,8 +115,8 @@ public class DriveBase extends SubsystemBase
 		// Put rear talons into a differential drive object and set the
 	    // front talons to follow the rears.
 		  
-		//LFCanTalon.set(ControlMode.Follower, LRCanTalon.getDeviceID());
-		//RFCanTalon.set(ControlMode.Follower, RRCanTalon.getDeviceID());
+		LFCanTalon.set(ControlMode.Follower, LRCanTalon.getDeviceID());
+		RFCanTalon.set(ControlMode.Follower, RRCanTalon.getDeviceID());
 
 		robotDrive = new DifferentialDrive(LRCanTalon, RRCanTalon);
 
