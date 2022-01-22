@@ -130,10 +130,8 @@ public class Robot extends TimedRobot
 
       SmartDashboard.putData("Version", (Sendable) SendableVersion.INSTANCE);
 
-      // Instantiate our RobotContainer class. This will perform all necessary setup
-      // of the various
-      // subsystems, commands and other items that are needed to to be ready before we
-      // start doing
+      // Instantiate our RobotContainer class. This will perform all necessary setup of the various
+      // subsystems, commands and other items that are needed to to be ready before we start doing
       // either autonomous or teleop modes.
 
       robotContainer = new RobotContainer();
