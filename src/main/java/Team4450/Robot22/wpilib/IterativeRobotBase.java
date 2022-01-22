@@ -372,6 +372,10 @@ public abstract class IterativeRobotBase extends RobotBase {
     }
   }
 
+  /**
+   * Turn watchdog warnings off or on.
+   * @param enabled True to enable, false to disable.
+   */
   public void enableWatchDogWarning(boolean enabled)
   {
       m_watchDog_warning = enabled;
@@ -382,6 +386,10 @@ public abstract class IterativeRobotBase extends RobotBase {
       m_watchdog_flush = enabled;
   }
 
+  /**
+   * Set the timeout for the watchdog warning.
+   * @param timeout Timeout in seconds.
+   */
   public void setWatchDogTimeout(double timeout)
   {
       m_watchdog.setTimeout(timeout);
