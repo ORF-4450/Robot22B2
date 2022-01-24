@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -830,4 +831,13 @@ public class DriveBase extends SubsystemBase
         return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(PIDRateType.velocityMPS), 
                                                 rightEncoder.getVelocity(PIDRateType.velocityMPS));
     }
+
+	/**
+	 * Displays a trajectory on the sim gui field image.
+	 * @param trajectory Trajctory to display.
+	 */
+	public void displayTrajectoryOnSim(Trajectory trajectory)
+	{
+		if (RobotBase.isSimulation()) fieldSim.getObject("traj").setTrajectory(trajectory);
+	}
 }

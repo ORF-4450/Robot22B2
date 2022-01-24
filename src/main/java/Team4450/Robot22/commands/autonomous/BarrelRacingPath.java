@@ -100,6 +100,8 @@ public class BarrelRacingPath extends CommandBase
 		commands.addCommands(command);
 		
 		commands.schedule();
+			
+		//driveBase.displayTrajectoryOnSim(RobotContainer.barrel1Trajectory);
 	}
 	
 	/**
