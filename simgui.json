@@ -13,7 +13,14 @@
         }
       },
       "/SmartDashboard/Field": {
-        "image": "C:\\Users\\rcorn\\workspace\\FRC Java\\Robot21C\\resources\\2021-barrel.png",
+        "Robot": {
+          "length": 0.6096000075340271,
+          "width": 0.6096000075340271
+        },
+        "height": 4.572000026702881,
+        "image": "C:\\Users\\rcorn\\workspace\\FRC Java\\Robot21C\\resources\\2021-bounce.png",
+        "units": "feet",
+        "width": 9.144000053405762,
         "window": {
           "visible": true
         }

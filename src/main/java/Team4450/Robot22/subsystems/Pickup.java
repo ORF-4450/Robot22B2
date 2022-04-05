@@ -29,7 +29,7 @@ public class Pickup extends SubsystemBase
 	private boolean			extended = false, pickupRunning = false, interrupted;
     public static boolean   balleye = false;
     
-	public Pickup (Channel channel)
+	public Pickup (Channel mychannel)
 	{
 		Util.consoleLog();
 
@@ -39,7 +39,7 @@ public class Pickup extends SubsystemBase
 
 		InitializeCANTalon(pickupTalon);
         
-        this.channel = channel;
+        channel = mychannel;
 
         // Configure interrupt handler for the ballEye optical ball detector. An interrupt
         // handler will run the code (function) we specifiy when the RoboRio detects a change
