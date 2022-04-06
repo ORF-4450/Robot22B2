@@ -113,7 +113,7 @@ public class DriveBase extends SubsystemBase
         // Needed for Built-in SRX encoder sim support, not used at this time.
         if (RobotBase.isSimulation())
         {
-            //leftEncoder.setInverted(true);
+            leftEncoder.setInverted(true);
             //rightEncoder.setInverted(true);
         }
 		
@@ -228,13 +228,12 @@ public class DriveBase extends SubsystemBase
 
 		// Configure our SRXMagneticEncoderRelative instances to use the dummy encoders instead
 		// of actual CTRE magnetic encoders connected to TalonSRX controllers.
-		leftEncoder.setSimEncoder(leftDummyEncoder);
-        rightEncoder.setSimEncoder(rightDummyEncoder);
+		//leftEncoder.setSimEncoder(leftDummyEncoder);
+        //rightEncoder.setSimEncoder(rightDummyEncoder);
         
-        // This code is used with the built-in SRXMagneticEncoder sim support instead of above
-        // code. Not used at this time as buit-in sim support is not reliable.
-        //leftEncoder.initializeSim();
-        //rightEncoder.initializeSim();
+        // Set up built-in SRXMagneticEncoder sim support.
+        leftEncoder.initializeSim();
+        rightEncoder.initializeSim();
 
 		// Create the encoder simulation classes that wrap the dummy encoders.
 		leftEncoderSim = new EncoderSim(leftDummyEncoder);
@@ -350,24 +349,24 @@ public class DriveBase extends SubsystemBase
 
 			// Drive the dummy encoders (via EncoderSim instances) which in turn drive our SRXMagneticEncoder
 			// instances.
-			leftEncoderSim.setDistance(driveSim.getLeftPositionMeters());
-			leftEncoderSim.setRate(driveSim.getLeftVelocityMetersPerSecond());
+			//leftEncoderSim.setDistance(driveSim.getLeftPositionMeters());
+			//leftEncoderSim.setRate(driveSim.getLeftVelocityMetersPerSecond());
 
-            // Use with built-in SRX encoder support. Not used at this time.
-            //leftEncoder.setSimValues(driveSim.getLeftPositionMeters(), driveSim.getLeftVelocityMetersPerSecond());
+            // Drive built-in SRX encoder support.
+            leftEncoder.setSimValues(driveSim.getLeftPositionMeters(), driveSim.getLeftVelocityMetersPerSecond());
 
-			rightEncoderSim.setDistance(driveSim.getRightPositionMeters());
-			rightEncoderSim.setRate(driveSim.getRightVelocityMetersPerSecond());
+			//rightEncoderSim.setDistance(driveSim.getRightPositionMeters());
+			//rightEncoderSim.setRate(driveSim.getRightVelocityMetersPerSecond());
 			
-            // Use with built-in SRX encoder support. Not used at this time.
-            //rightEncoder.setSimValues(driveSim.getRightPositionMeters(), driveSim.getRightVelocityMetersPerSecond());
+            // Drive built-in SRX encoder support.
+            rightEncoder.setSimValues(driveSim.getRightPositionMeters(), driveSim.getRightVelocityMetersPerSecond());
 
             // Update the dummy analog gyro (via GyroSim instance) which drives our NavX class instance.
             // We change the sign because the sign convention of Rotation2d is opposite of our convention used
             // in the Navx class.
 		    //gyroSim.setAngle(-driveSim.getHeading().getDegrees());
             
-            // Used with built-in NavX sim support. Not used at this time.
+            // Drive built-in NavX sim support.
             RobotContainer.navx.setSimAngle(-driveSim.getHeading().getDegrees());
 
 			Util.consoleLog("lcount=%d  ldist=%.3fm  lget=%d ldist=%.3fm abs=%.1f", leftDummyEncoder.get(), 
@@ -680,7 +679,7 @@ public class DriveBase extends SubsystemBase
         RobotContainer.navx.resetYaw();
 
         // This has the effect of resetting encoder tracking in the driveSim.
-		if (driveSim != null) driveSim.setPose(driveSim.getPose());   //odometer.getPoseMeters());
+		//if (driveSim != null) driveSim.setPose(driveSim.getPose());   //odometer.getPoseMeters());
 	}
 	
 	/**
@@ -688,11 +687,9 @@ public class DriveBase extends SubsystemBase
 	 * between calling for encoder reset and the encoder returning zero. Sometimes this does not
 	 * matter and other times it can really mess things up if you reset encoder but at the time
 	 * you next read the encoder for a measurement (like in autonomous programs) the encoder has
-	 * not yet been reset and returns the previous count. This method resets and delays 112ms
-	 * which testing seemed to show would cause the next read of the reset encoder to return
-	 * zero. Note, the 112ms delay was with old way of getting encoder counts which had ~100ms
-     * response delay plus command send delay. With new way of getting counts, response delay
-     * is ~20ms plus ~10ms send delay. So we now wait 35ms to let reset complete.
+	 * not yet been reset and returns the previous count. This method resets and delays 36ms
+	 * which sould cause the next read of the reset encoder to return zero. The response delay
+     * is ~20ms plus ~10ms each send delay. So we now wait 36ms total to let resets complete.
 	 */
 	public void resetEncodersWithDelay()
 	{
@@ -706,11 +703,11 @@ public class DriveBase extends SubsystemBase
 
 		// Reset encoders with delay before proceeding.
 		int rightError = rightEncoder.reset(15);    // 15ms
-		int leftError = leftEncoder.reset(15);      // 15ms
+		int leftError = leftEncoder.reset(21);      // 21ms
 
 		lastLeftDist = lastRightDist = 0;
 
-		if (RobotBase.isSimulation()) driveSim.setPose(driveSim.getPose());   //odometer.getPoseMeters());
+		//if (RobotBase.isSimulation()) driveSim.setPose(driveSim.getPose());   //odometer.getPoseMeters());
 		
 		Util.consoleLog("after reset lget=%d  rget=%d  lerr=%d  rerr=%d", leftEncoder.get(), rightEncoder.get(),
 						leftError, rightError);
