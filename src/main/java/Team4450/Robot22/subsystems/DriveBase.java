@@ -113,7 +113,7 @@ public class DriveBase extends SubsystemBase
         // Needed for Built-in SRX encoder sim support, not used at this time.
         if (RobotBase.isSimulation())
         {
-            leftEncoder.setInverted(true);
+            //leftEncoder.setInverted(true);
             //rightEncoder.setInverted(true);
         }
 		
@@ -228,13 +228,13 @@ public class DriveBase extends SubsystemBase
 
 		// Configure our SRXMagneticEncoderRelative instances to use the dummy encoders instead
 		// of actual CTRE magnetic encoders connected to TalonSRX controllers.
-		//leftEncoder.setSimEncoder(leftDummyEncoder);
-        //rightEncoder.setSimEncoder(rightDummyEncoder);
+		leftEncoder.setSimEncoder(leftDummyEncoder);
+        rightEncoder.setSimEncoder(rightDummyEncoder);
         
         // This code is used with the built-in SRXMagneticEncoder sim support instead of above
         // code. Not used at this time as buit-in sim support is not reliable.
-        leftEncoder.initializeSim();
-        rightEncoder.initializeSim();
+        //leftEncoder.initializeSim();
+        //rightEncoder.initializeSim();
 
 		// Create the encoder simulation classes that wrap the dummy encoders.
 		leftEncoderSim = new EncoderSim(leftDummyEncoder);
@@ -350,17 +350,17 @@ public class DriveBase extends SubsystemBase
 
 			// Drive the dummy encoders (via EncoderSim instances) which in turn drive our SRXMagneticEncoder
 			// instances.
-			//leftEncoderSim.setDistance(driveSim.getLeftPositionMeters());
-			//leftEncoderSim.setRate(driveSim.getLeftVelocityMetersPerSecond());
+			leftEncoderSim.setDistance(driveSim.getLeftPositionMeters());
+			leftEncoderSim.setRate(driveSim.getLeftVelocityMetersPerSecond());
 
             // Use with built-in SRX encoder support. Not used at this time.
-            leftEncoder.setSimValues(driveSim.getLeftPositionMeters(), driveSim.getLeftVelocityMetersPerSecond());
+            //leftEncoder.setSimValues(driveSim.getLeftPositionMeters(), driveSim.getLeftVelocityMetersPerSecond());
 
-			//rightEncoderSim.setDistance(driveSim.getRightPositionMeters());
-			//rightEncoderSim.setRate(driveSim.getRightVelocityMetersPerSecond());
+			rightEncoderSim.setDistance(driveSim.getRightPositionMeters());
+			rightEncoderSim.setRate(driveSim.getRightVelocityMetersPerSecond());
 			
             // Use with built-in SRX encoder support. Not used at this time.
-            rightEncoder.setSimValues(driveSim.getRightPositionMeters(), driveSim.getRightVelocityMetersPerSecond());
+            //rightEncoder.setSimValues(driveSim.getRightPositionMeters(), driveSim.getRightVelocityMetersPerSecond());
 
             // Update the dummy analog gyro (via GyroSim instance) which drives our NavX class instance.
             // We change the sign because the sign convention of Rotation2d is opposite of our convention used
@@ -704,7 +704,7 @@ public class DriveBase extends SubsystemBase
 		rightEncoder.setStatusFramePeriod(20);
 		leftEncoder.setStatusFramePeriod(20);
 
-		// Reset encoders with 30ms delay before proceeding.
+		// Reset encoders with delay before proceeding.
 		int rightError = rightEncoder.reset(15);    // 15ms
 		int leftError = leftEncoder.reset(15);      // 15ms
 
